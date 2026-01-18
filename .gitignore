@@ -1,0 +1,13 @@
+# Anchor
+.anchor
+target/
+node_modules/
+test-ledger/
+.DS_Store
+
+# IDL
+**/*.so
+**/deploy/
+
+# Logs
+*.log
