@@ -25,18 +25,19 @@ pub struct Refund<'info> {
     #[account(
         mut,
         associated_token::mint = mint_a,
-        associated_token::authority = maker,
-        associated_token::token_program = token_program,
-    )]
-    pub maker_ata_a: Box<InterfaceAccount<'info, TokenAccount>>,
-    #[account(
-        mut,
-        associated_token::mint = mint_a,
         associated_token::authority = escrow,
         associated_token::token_program = token_program,
     )]
     pub vault: Box<InterfaceAccount<'info, TokenAccount>>,
-
+    #[account(
+        init_if_needed,
+        payer = maker,
+        associated_token::mint = mint_a,
+        associated_token::authority = maker,
+        associated_token::token_program = token_program,
+    )]
+    pub maker_ata_a: Box<InterfaceAccount<'info, TokenAccount>>,
+    
     //Programs
     pub associated_token_program: Program<'info, AssociatedToken>,
     pub token_program: Interface<'info, TokenInterface>,
@@ -82,7 +83,6 @@ impl<'info> Refund<'info> {
         )?;
         Ok(())
     }
-    
 }
 
 pub fn handler(ctx: Context<Refund>) -> Result<()> {
