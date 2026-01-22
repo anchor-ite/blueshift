@@ -66,7 +66,7 @@ impl<'info> Make<'info> {
     fn deposit_tokens(&self, amount: u64) -> Result<()> {
         transfer_checked(
             CpiContext::new(
-                self.token_program.to_account_info(),
+                self.token_program.key(),
                 TransferChecked {
                     from: self.maker_ata_a.to_account_info(),
                     mint: self.mint_a.to_account_info(),
@@ -79,12 +79,12 @@ impl<'info> Make<'info> {
         )?;
         Ok(())
     }
+}
 
-    pub fn handler(ctx: Context<Make>, seed: u64, receive: u64, amount: u64) -> Result<()> {
+pub fn handler(ctx: Context<Make>, seed: u64, receive: u64, amount: u64) -> Result<()> {
         require_gt!(receive, 0, EscrowError::InvalidAmount);
         require_gt!(amount, 0, EscrowError::InvalidAmount);
         ctx.accounts.populate_escrow(seed, receive, ctx.bumps.escrow)?;
         ctx.accounts.deposit_tokens(amount)?;
         Ok(())
     }
-}
