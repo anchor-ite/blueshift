@@ -5,13 +5,11 @@ use anchor_spl::{
     associated_token::AssociatedToken
 };
 
-use solana_sysvar_id::SysvarId;
 use solana_instructions_sysvar::{
+    ID as INSTRUCTIONS_SYSVAR_ID,
     load_instruction_at_checked,
     load_current_index_checked,
 };
-
-const INSTRUCTIONS_SYSVAR_ID: Pubkey = solana_instructions_sysvar::ID;
 
 declare_id!("22222222222222222222222222222222222222222222");
 

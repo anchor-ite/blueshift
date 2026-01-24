@@ -162,7 +162,6 @@ dependencies = [
  "anchor-lang",
  "anchor-spl",
  "solana-instructions-sysvar",
- "solana-sysvar-id",
 ]
 
 [[package]]
